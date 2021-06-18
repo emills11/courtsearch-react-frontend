@@ -2,17 +2,25 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useState, useEffect, useRef } from 'react'
 import '../index.css'
+import KeyService from '../services/KeyService'
 
 const Map = ({ lng, lat, zoomLevel }) => {
-    console.log(lng, lat, zoomLevel)
 
     const [map, setMap] = useState(null)
     const mapContainer = useRef(null)
 
     useEffect(() => {
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbGxzMTEiLCJhIjoiY2twdHlycjQzMHZnZjJxcXIyazZzajJkdiJ9.P54useshEspdsBTPPSrVfw'
+        const initializeMap = async ({ setMap, mapContainer }) => {
+            console.log('initializing map...')
 
-        const initializeMap = ({ setMap, mapContainer }) => {
+            if (mapboxgl.accessToken === null) {
+                await KeyService.getKeyByType('mapbox')
+                    .then(response => {
+                        mapboxgl.accessToken = response.data[0].key
+                    })
+                console.log(mapboxgl.accessToken)
+            }
+
             const map = new mapboxgl.Map({
                 container: mapContainer.current,
                 style: 'mapbox://styles/mapbox/streets-v11',

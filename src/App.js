@@ -5,7 +5,6 @@ import NewCourt from './components/NewCourt'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './index.css'
 
-
 function App() {
   
   const geolocation = useGeolocation()
@@ -18,7 +17,7 @@ function App() {
           <Route path='/' exact render={(props) => (
             <>
               {!geolocation.error
-                ? <Map lng={geolocation.longitude} lat={geolocation.latitude} zoomLevel={10}/>
+                ? <Map lng={geolocation.longitude} lat={geolocation.latitude} zoomLevel={10} />
                 : <p>Please enable location tracking.</p>}
             </>
           )}/>
