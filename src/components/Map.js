@@ -2,12 +2,48 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useState, useEffect, useRef } from 'react'
 import '../index.css'
+import CourtService from '../services/CourtService'
 import KeyService from '../services/KeyService'
 
 const Map = ({ lng, lat, zoomLevel }) => {
 
     const [map, setMap] = useState(null)
     const mapContainer = useRef(null)
+
+    const loadPoints = async () => {
+        let response = await CourtService.getCourts()
+        if (response.status !== 200) {
+            throw new Error(`Error, status: ${response.status}`)
+        }
+
+        const source = {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': []
+            }
+        }
+
+        response.data.forEach(court => {
+            source.data.features.push(
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': court.location.type,
+                        'coordinates': [
+                            court.location.x, court.location.y
+                        ]
+                    },
+                    'properties': {
+                        'title': court.address
+                    }
+                }
+            )
+        })
+
+        return source
+        
+    }
 
     useEffect(() => {
         const initializeMap = async ({ setMap, mapContainer }) => {
@@ -39,42 +75,27 @@ const Map = ({ lng, lat, zoomLevel }) => {
                     (error, image) => {
                         if (error) throw error
                         map.addImage('custom-marker', image)
-                        map.addSource('points', {
-                            'type': 'geojson',
-                            'data': {
-                                'type': 'FeatureCollection',
-                                'features': [
-                                    {
-                                        'type': 'Feature',
-                                        'geometry': {
-                                            'type': 'Point',
-                                            'coordinates': [
-                                                lng, lat
-                                            ]
-                                        },
-                                        'properties': {
-                                            'title': 'Current Location'
-                                        }
-                                    }
-                                ]
-                            }
-                        })
 
-                        map.addLayer({
-                            'id': 'points',
-                            'type': 'symbol',
-                            'source': 'points',
-                            'layout': {
-                                'icon-image': 'custom-marker',
-                                'text-field': ['get', 'title'],
-                                'text-font': [
-                                    'Open Sans Semibold',
-                                    'Arial Unicode MS Bold'
-                                ],
-                                'text-offset': [0, 1.25],
-                                'text-anchor': 'top'
-                            }
+                        loadPoints().then((points) => {
+                            console.log(points)
+                            map.addSource('points', points)
+                            map.addLayer({
+                                'id': 'points',
+                                'type': 'symbol',
+                                'source': 'points',
+                                'layout': {
+                                    'icon-image': 'custom-marker',
+                                    'text-field': ['get', 'title'],
+                                    'text-font': [
+                                        'Open Sans Semibold',
+                                        'Arial Unicode MS Bold'
+                                    ],
+                                    'text-offset': [0, 1.25],
+                                    'text-anchor': 'top'
+                                }
+                            })
                         })
+                        
                     }
                 )
             })
