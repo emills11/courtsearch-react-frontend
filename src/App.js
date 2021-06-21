@@ -2,6 +2,7 @@ import useGeolocation from 'react-hook-geolocation'
 import TopBanner from './components/TopBanner'
 import Map from './components/Map'
 import NewCourt from './components/NewCourt'
+import Footer from './components/Footer'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './index.css'
 
@@ -23,6 +24,7 @@ function App() {
           )}/>
           <Route path='/new-court' component={NewCourt}/>
         </div>
+        <Footer />
       </div>
     </Router>
   );

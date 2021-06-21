@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import '../index.css'
 import CourtService from '../services/CourtService'
 import KeyService from '../services/KeyService'
+import Image from '../basketball-hoop-32px.png'
 
 const Map = ({ lng, lat, zoomLevel }) => {
 
@@ -71,7 +72,7 @@ const Map = ({ lng, lat, zoomLevel }) => {
                 setMap(map)
                 map.resize()
                 map.loadImage(
-                    'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+                    Image,
                     (error, image) => {
                         if (error) throw error
                         map.addImage('custom-marker', image)
@@ -105,7 +106,7 @@ const Map = ({ lng, lat, zoomLevel }) => {
     }, [map, lng, lat, zoomLevel])
 
     return (
-        <section id='mapContainer' style={{ height: '795px' }}>
+        <section id='mapContainer' style={{ height: '765px' }}>
             <div className='map-container'>
                 <div id='map' ref={el => (mapContainer.current = el)} style={{ position: 'relative' }} />
             </div>

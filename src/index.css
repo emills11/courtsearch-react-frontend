@@ -100,3 +100,11 @@ ul {
 #map {
   height: 100%;
 }
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
