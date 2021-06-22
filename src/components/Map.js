@@ -106,7 +106,7 @@ const Map = ({ lng, lat, zoomLevel }) => {
     }, [map, lng, lat, zoomLevel])
 
     return (
-        <section id='mapContainer' style={{ height: '765px' }}>
+        <section id='mapContainer' style={{ height: '770px' }}>
             <div className='map-container'>
                 <div id='map' ref={el => (mapContainer.current = el)} style={{ position: 'relative' }} />
             </div>

@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 div {
@@ -26,6 +29,10 @@ ul {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
+}
+
+a {
+  color:#fff;
 }
 
 #top-bar {
@@ -101,10 +108,23 @@ ul {
   height: 100%;
 }
 
-.footer {
-  position: relative;
+footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  background-color: #eb441a;
+}
+
+.form-container {
+  position: relative;
+  height: 100%;
+  padding: 5px 20px;
+
+}
+
+.form-container fieldset {
+  margin: 20px 0;
 }
