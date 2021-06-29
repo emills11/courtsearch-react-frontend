@@ -55,7 +55,6 @@ const Map = ({ lng, lat, zoomLevel }) => {
                     .then(response => {
                         mapboxgl.accessToken = response.data[0].key
                     })
-                console.log(mapboxgl.accessToken)
             }
 
             const map = new mapboxgl.Map({

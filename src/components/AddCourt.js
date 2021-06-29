@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import '../index.css'
+import AddCourtService from '../services/AddCourtService'
 
 const NewCourt = () => {
     const [longitude, setLongitude] = useState('')
@@ -13,8 +14,11 @@ const NewCourt = () => {
 
     const [radioButton, setRadioButton] = useState('coords')
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
+
+        let fullAddress = null
+        let coordinates = null
 
         if (radioButton === 'coords') {
             if (!longitude || !latitude) {
@@ -22,12 +26,23 @@ const NewCourt = () => {
                 return
             }
 
+            coordinates = [longitude, latitude]
+
+
         } else {
             if (!address || !city || !prov || !zip || !country) {
                 alert('Please fill out required fields')
                 return
             }
 
+            fullAddress = address.concat(
+                ', ', city, ', ', prov, ' ', zip, ', ', country)
+
+        }
+
+        let response = await AddCourtService.createNewCourt(fullAddress, coordinates)
+        if (response.status !== 201) {
+            throw new Error(`Error: status: ${response.status}`)
         }
 
         setLongitude('')
