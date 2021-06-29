@@ -1,7 +1,7 @@
 import useGeolocation from 'react-hook-geolocation'
 import TopBanner from './components/TopBanner'
 import Map from './components/Map'
-import NewCourt from './components/NewCourt'
+import AddCourt from './components/AddCourt'
 import Footer from './components/Footer'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './index.css'
@@ -22,7 +22,7 @@ function App() {
                 : <p>Please enable location tracking.</p>}
             </>
           )}/>
-          <Route path='/new-court' component={NewCourt}/>
+          <Route path='/add-court' component={AddCourt}/>
         </div>
         <Footer />
       </div>

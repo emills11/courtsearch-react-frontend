@@ -16,8 +16,8 @@ const TopBarOptions = () => {
                     </li>
                 }
             </Link>
-            <Link to='/new-court'>
-                {useLocation().pathname === '/new-court'
+            <Link to='/add-court'>
+                {useLocation().pathname === '/add-court'
                     ? <li className='top-bar-list-item new-court-container active'>
                         <h3>Add A Court</h3>
                     </li>
