@@ -102,7 +102,8 @@ const Map = ({ lng, lat, zoomLevel }) => {
 
             map.on('click', 'points', (e) => {
                 let coordinates = e.features[0].geometry.coordinates.slice();
-                let description = `<h4>${e.features[0].properties.title}</h4>`;
+                let description = `<h4>${e.features[0].properties.title}</h4>
+                <p>Coordinates: ${coordinates[0].toPrecision(7)}, ${coordinates[1].toPrecision(7)}</p>`;
 
                 // Ensure that if the map is zoomed out such that multiple
                 // copies of the feature are visible, the popup appears
@@ -111,10 +112,15 @@ const Map = ({ lng, lat, zoomLevel }) => {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
 
-                new mapboxgl.Popup({ className: 'mapboxgl-popup', offset: [0, -15] })
+                new mapboxgl.Popup({ offset: [0, -15] })
                     .setLngLat(coordinates)
                     .setHTML(description)
                     .addTo(map);
+
+                map.flyTo({
+                    center: e.features[0].geometry.coordinates,
+                    zoom: 15
+                });
             });
 
             // Change the cursor to a pointer when the mouse is over the points layer.
