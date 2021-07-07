@@ -67,6 +67,8 @@ const Map = ({ lng, lat, zoomLevel }) => {
             map.dragRotate.disable();
             map.touchZoomRotate.disableRotation();
 
+            map.addControl(new mapboxgl.NavigationControl({ showCompass: false }));
+
             map.on('load', () => {
                 setMap(map);
                 map.resize();
