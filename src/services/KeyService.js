@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const KEYS_REST_API_URL = "http://localhost:8080/api/keys"
+const KEYS_REST_API_URL = "http://courtsearch.csproject.org:8080/api/keys"
 
 class KeyService {
 
