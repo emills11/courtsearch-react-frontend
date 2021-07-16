@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const COURTS_REST_API_URL = "http://courtsearch.csproject.org:8080/api/courts"
+const COURTS_REST_API_URL = "/api/courts"
 
 class CourtService {
 
