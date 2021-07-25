@@ -41,5 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://courtsearch.csproject.org/"
+  "proxy": "http://courtsearch.csproject.org:8080/"
 }
